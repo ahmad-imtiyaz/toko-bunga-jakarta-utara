@@ -35,17 +35,20 @@ tailwind.config = {
 <div class="flex min-h-screen">
   <!-- Sidebar -->
   <aside class="w-64 bg-navy text-white flex flex-col flex-shrink-0 shadow-xl" id="sidebar">
-    <!-- Logo -->
-    <div class="px-6 py-5 border-b border-white/10">
-      <div class="flex items-center gap-3">
-        <div class="w-9 h-9 bg-sage rounded-full flex items-center justify-center text-sm">🌸</div>
-        <div>
-          <div class="font-serif font-semibold text-sm leading-tight">Admin Panel</div>
-          <div class="text-xs text-gray-400">Toko Bunga Jkt Utara</div>
-        </div>
-      </div>
+<!-- Logo -->
+<div class="px-6 py-5 border-b border-white/10">
+  <div class="flex items-center gap-3 group">
+    <div class="w-9 h-9 bg-sage rounded-full flex items-center justify-center shadow overflow-hidden transition duration-300 group-hover:scale-110 group-hover:shadow-lg">
+      <img src="<?= BASE_URL ?>/assets/images/icon.png"
+           alt="Logo"
+           class="w-full h-full object-cover transition duration-500 group-hover:rotate-6">
     </div>
-
+    <div class="transition duration-300 group-hover:translate-x-0.5">
+      <div class="font-serif font-semibold text-sm leading-tight">Admin Panel</div>
+      <div class="text-xs text-gray-400">Toko Bunga Jkt Utara</div>
+    </div>
+  </div>
+</div>
     <!-- Nav -->
     <nav class="flex-1 px-3 py-5 space-y-1 overflow-y-auto">
       <?php

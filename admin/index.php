@@ -52,12 +52,16 @@ if (!isLoggedIn()) {
       <div class="absolute bottom-0 right-0 w-80 h-80 bg-navy/5 rounded-full translate-x-1/3 translate-y-1/3"></div>
 
       <div class="w-full max-w-sm mx-4 relative">
-        <!-- Logo area -->
-        <div class="text-center mb-8">
-          <div class="w-16 h-16 bg-sage rounded-full flex items-center justify-center text-3xl shadow-lg mx-auto mb-4">🌸</div>
-          <h1 class="font-serif text-2xl font-bold text-navy">Admin Panel</h1>
-          <p class="text-gray-500 text-sm mt-1">Toko Bunga Jakarta Utara</p>
-        </div>
+    <!-- Logo area -->
+<div class="text-center mb-8">
+  <div class="w-16 h-16 bg-sage rounded-full flex items-center justify-center shadow-lg mx-auto mb-4 overflow-hidden">
+    <img src="../assets/images/icon.png"
+         alt="Logo"
+         class="w-full h-full object-cover">
+  </div>
+  <h1 class="font-serif text-2xl font-bold text-navy">Admin Panel</h1>
+  <p class="text-gray-500 text-sm mt-1">Toko Bunga Jakarta Utara</p>
+</div>
 
         <!-- Login card -->
         <div class="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">

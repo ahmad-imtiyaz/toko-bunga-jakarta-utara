@@ -22,69 +22,81 @@ require __DIR__ . '/../includes/header.php';
 ?>
 
 <!-- ============================================================
-     HERO SECTION
+     HERO SECTION — Full Image Only (foto asli toko)
 ============================================================ -->
-<section class="relative min-h-[90vh] flex items-center overflow-hidden bg-cream">
-<div class="absolute inset-0 grid grid-cols-3 gap-0 opacity-30 md:opacity-40">
-  <div class="bg-cover bg-center" style="background-image:url('/TOKOBUNGAJAKARTAUTARA/assets/images/herosec.jpg')"></div>
-  <div class="bg-cover bg-center" style="background-image:url('/TOKOBUNGAJAKARTAUTARA/assets/images/herosec.jpg')"></div>
-  <div class="bg-cover bg-center" style="background-image:url('/TOKOBUNGAJAKARTAUTARA/assets/images/herosec.jpg')"></div>
-</div>
-  <!-- Gradient overlay -->
-  <div class="absolute inset-0 bg-gradient-to-r from-cream via-cream/90 to-cream/50"></div>
+<section class="py-10 bg-gradient-to-b from-pink-50 to-white">
 
-  <!-- Decorative elements -->
-  <div class="absolute top-10 right-10 w-64 h-64 bg-sage/10 rounded-full blur-3xl"></div>
-  <div class="absolute bottom-10 right-1/3 w-48 h-48 bg-blush/20 rounded-full blur-2xl"></div>
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="relative overflow-hidden rounded-3xl shadow-xl">
 
-  <div class="relative max-w-7xl mx-auto px-4 py-20 md:py-32">
-    <div class="max-w-2xl">
-      <!-- Badge -->
-      <div class="inline-flex items-center gap-2 bg-sage/10 border border-sage/30 rounded-full px-4 py-1.5 text-sage text-sm font-medium mb-6">
-        <span class="w-2 h-2 bg-sage rounded-full animate-pulse"></span>
-        Florist Terpercaya Jakarta Utara
+      <!-- Slides -->
+    <div id="heroSlider" class="flex transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)]">
+
+        <img src="<?= BASE_URL ?>/assets/images/banner.png"
+             class="w-full flex-shrink-0 object-cover max-h-[520px]"
+             alt="Banner">
+
+        <img src="<?= BASE_URL ?>/assets/images/bannersub.png"
+             class="w-full flex-shrink-0 object-cover max-h-[520px]"
+             alt="Banner">
+
       </div>
 
-      <!-- H1 -->
-      <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-navy leading-tight mb-6">
-        <?= e(setting('hero_title')) ?>
-      </h1>
-
-      <p class="text-gray-600 text-lg md:text-xl leading-relaxed mb-8 max-w-xl">
-        <?= e(setting('hero_subtitle')) ?>
-      </p>
-
-      <!-- USP badges -->
-      <div class="flex flex-wrap gap-3 mb-10">
-        <span class="bg-white border border-sage/30 rounded-full px-4 py-1.5 text-sm text-gray-700 shadow-sm">✅ Kirim 24 Jam</span>
-        <span class="bg-white border border-sage/30 rounded-full px-4 py-1.5 text-sm text-gray-700 shadow-sm">✅ Bunga Segar</span>
-        <span class="bg-white border border-sage/30 rounded-full px-4 py-1.5 text-sm text-gray-700 shadow-sm">✅ Harga Mulai 300rb</span>
-        <span class="bg-white border border-sage/30 rounded-full px-4 py-1.5 text-sm text-gray-700 shadow-sm">✅ Custom Desain</span>
-      </div>
-
-      <!-- CTA Buttons -->
-      <div class="flex flex-col sm:flex-row gap-4">
-        <a href="<?= e($wa_url) ?>?text=<?= $wa_msg ?>" target="_blank"
-           class="inline-flex items-center justify-center gap-3 bg-sage hover:bg-sage-dark text-white font-bold px-8 py-4 rounded-full text-base transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5">
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.861L0 24l6.305-1.508A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.002-1.374l-.36-.214-3.735.893.944-3.639-.234-.374A9.818 9.818 0 1112 21.818z"/></svg>
-          Pesan via WhatsApp
-        </a>
-        <a href="#produk"
-           class="inline-flex items-center justify-center gap-2 bg-white border-2 border-sage text-sage font-bold px-8 py-4 rounded-full text-base transition-all hover:bg-sage hover:text-white duration-300">
-          Lihat Produk ↓
-        </a>
-      </div>
     </div>
   </div>
 
-  <!-- Stats bar -->
-  <div class="absolute bottom-0 left-0 right-0 bg-white/80 backdrop-blur-sm border-t border-cream-dark">
-    <div class="max-w-7xl mx-auto px-4 py-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-      <div><div class="font-serif font-bold text-navy text-2xl">500+</div><div class="text-xs text-gray-500 mt-0.5">Pelanggan Puas</div></div>
-      <div><div class="font-serif font-bold text-navy text-2xl">10+</div><div class="text-xs text-gray-500 mt-0.5">Tahun Pengalaman</div></div>
-      <div><div class="font-serif font-bold text-navy text-2xl">24 Jam</div><div class="text-xs text-gray-500 mt-0.5">Layanan Pengiriman</div></div>
-      <div><div class="font-serif font-bold text-navy text-2xl">6</div><div class="text-xs text-gray-500 mt-0.5">Kecamatan Terlayani</div></div>
+</section>
+
+<!-- ============================================================
+     INTRO SECTION — H1 + USP + CTA (langsung di bawah gambar)
+============================================================ -->
+<section class="bg-cream py-12 md:py-16 border-b border-cream-dark">
+  <div class="max-w-4xl mx-auto px-4 text-center">
+
+    <!-- Badge -->
+    <div class="inline-flex items-center gap-2 bg-sage/10 border border-sage/30 rounded-full px-4 py-1.5 text-sage text-sm font-medium mb-5">
+      <span class="w-2 h-2 bg-sage rounded-full animate-pulse"></span>
+      Florist Terpercaya Jakarta Utara
     </div>
+
+    <!-- H1 -->
+    <h1 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-navy leading-tight mb-4">
+      <?= e(setting('hero_title')) ?>
+    </h1>
+
+    <p class="text-gray-600 text-base md:text-lg leading-relaxed mb-7 max-w-2xl mx-auto">
+      <?= e(setting('hero_subtitle')) ?>
+    </p>
+
+    <!-- USP badges -->
+    <div class="flex flex-wrap justify-center gap-2 mb-8">
+      <span class="bg-white border border-sage/20 rounded-full px-4 py-1.5 text-sm text-gray-700 font-medium shadow-sm">✅ Kirim 24 Jam</span>
+      <span class="bg-white border border-sage/20 rounded-full px-4 py-1.5 text-sm text-gray-700 font-medium shadow-sm">✅ Bunga Segar</span>
+      <span class="bg-white border border-sage/20 rounded-full px-4 py-1.5 text-sm text-gray-700 font-medium shadow-sm">✅ Harga Mulai 300rb</span>
+      <span class="bg-white border border-sage/20 rounded-full px-4 py-1.5 text-sm text-gray-700 font-medium shadow-sm">✅ Custom Desain</span>
+    </div>
+
+    <!-- CTA Buttons -->
+    <div class="flex flex-col sm:flex-row gap-3 justify-center mb-10">
+      <a href="<?= e($wa_url) ?>?text=<?= $wa_msg ?>" target="_blank"
+         class="inline-flex items-center justify-center gap-2 bg-sage hover:bg-sage-dark text-white font-bold px-8 py-4 rounded-full text-base transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+        <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.861L0 24l6.305-1.508A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.002-1.374l-.36-.214-3.735.893.944-3.639-.234-.374A9.818 9.818 0 1112 21.818z"/></svg>
+        Pesan via WhatsApp
+      </a>
+      <a href="#produk"
+         class="inline-flex items-center justify-center gap-2 bg-white border-2 border-sage text-sage font-bold px-8 py-4 rounded-full text-base transition-all hover:bg-sage hover:text-white duration-300">
+        Lihat Produk ↓
+      </a>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+      <div><div class="font-serif font-bold text-navy text-2xl">500+</div><div class="text-xs text-gray-400 mt-0.5">Pelanggan Puas</div></div>
+      <div><div class="font-serif font-bold text-navy text-2xl">10+</div><div class="text-xs text-gray-400 mt-0.5">Tahun Pengalaman</div></div>
+      <div><div class="font-serif font-bold text-navy text-2xl">24 Jam</div><div class="text-xs text-gray-400 mt-0.5">Layanan Pengiriman</div></div>
+      <div><div class="font-serif font-bold text-navy text-2xl">6</div><div class="text-xs text-gray-400 mt-0.5">Kecamatan Terlayani</div></div>
+    </div>
+
   </div>
 </section>
 
@@ -187,17 +199,38 @@ require __DIR__ . '/../includes/header.php';
   <div class="absolute top-0 right-0 w-80 h-80 bg-sage/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
   <div class="max-w-7xl mx-auto px-4">
     <div class="grid md:grid-cols-2 gap-16 items-center">
-      <!-- Image grid -->
-      <div class="grid grid-cols-2 gap-3">
-        <img src="https://images.unsplash.com/photo-1487530811015-780780dde0e4?w=400&fit=crop"
-             alt="Bunga segar Jakarta Utara" class="rounded-2xl w-full aspect-square object-cover shadow-md" loading="lazy">
-        <img src="https://images.unsplash.com/photo-1490750967868-88df5691cc69?w=400&fit=crop"
-             alt="Florist Jakarta Utara" class="rounded-2xl w-full aspect-square object-cover shadow-md mt-6" loading="lazy">
-        <img src="https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?w=400&fit=crop"
-             alt="Karangan bunga Jakarta Utara" class="rounded-2xl w-full aspect-square object-cover shadow-md -mt-6" loading="lazy">
-        <img src="https://images.unsplash.com/photo-1530983822321-fcac2d3c0f07?w=400&fit=crop"
-             alt="Toko bunga Jakarta Utara" class="rounded-2xl w-full aspect-square object-cover shadow-md" loading="lazy">
-      </div>
+     <!-- Image grid aesthetic -->
+<div class="grid grid-cols-2 gap-4">
+  
+  <div class="relative group overflow-hidden rounded-2xl shadow-lg">
+    <img src="<?= BASE_URL ?>/assets/images/buket-bunga.webp"
+         class="w-full aspect-square object-cover transition duration-700 group-hover:scale-110"
+         alt="Buket bunga">
+    <div class="absolute inset-0 bg-gradient-to-t from-pink-200/30 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
+  </div>
+
+  <div class="relative group overflow-hidden rounded-2xl shadow-lg mt-8">
+    <img src="<?= BASE_URL ?>/assets/images/bunga-kertas.webp"
+         class="w-full aspect-square object-cover transition duration-700 group-hover:scale-110"
+         alt="Buket bunga">
+    <div class="absolute inset-0 bg-gradient-to-t from-pink-200/30 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
+  </div>
+
+  <div class="relative group overflow-hidden rounded-2xl shadow-lg -mt-8">
+    <img src="<?= BASE_URL ?>/assets/images/bunga-salip.webp"
+         class="w-full aspect-square object-cover transition duration-700 group-hover:scale-110"
+         alt="Buket bunga">
+    <div class="absolute inset-0 bg-gradient-to-t from-pink-200/30 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
+  </div>
+
+  <div class="relative group overflow-hidden rounded-2xl shadow-lg">
+    <img src="<?= BASE_URL ?>/assets/images/bunga-meja.webp"
+         class="w-full aspect-square object-cover transition duration-700 group-hover:scale-110"
+         alt="Buket bunga">
+    <div class="absolute inset-0 bg-gradient-to-t from-pink-200/30 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
+  </div>
+
+</div>
 
       <!-- Content -->
       <div>
@@ -391,6 +424,17 @@ require __DIR__ . '/../includes/header.php';
 <?php require __DIR__ . '/../includes/footer.php'; ?>
 
 <script>
+  // Slider Hero
+let index = 0;
+const slider = document.getElementById('heroSlider');
+const totalSlides = slider.children.length;
+
+setInterval(() => {
+  index = (index + 1) % totalSlides;
+  slider.style.transform = `translateX(-${index * 100}%)`;
+}, 5000);
+
+// lain
 function toggleFaq(btn) {
   const answer = btn.nextElementSibling;
   const icon   = btn.querySelector('.faq-icon');
