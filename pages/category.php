@@ -31,12 +31,29 @@ require __DIR__ . '/../includes/header.php';
 </div>
 
 <!-- Hero -->
-<section class="bg-cream py-14 md:py-20 relative overflow-hidden">
-  <div class="absolute top-0 right-0 w-64 h-64 bg-sage/10 rounded-full translate-x-1/2 -translate-y-1/2"></div>
-  <div class="max-w-7xl mx-auto px-4">
+<section class="relative py-14 md:py-24 overflow-hidden">
+  <!-- Background image dari category -->
+  <?php if (!empty($category['image'])): ?>
+  <div class="absolute inset-0">
+    <div class="absolute inset-0 bg-cover bg-center"
+         style="background-image: url('<?= e(imgUrl($category['image'], 'category')) ?>')"></div>
+    <div class="absolute inset-0 bg-navy/65"></div>
+  </div>
+  <?php else: ?>
+  <div class="absolute inset-0 bg-cream">
+    <div class="absolute top-0 right-0 w-64 h-64 bg-sage/10 rounded-full translate-x-1/2 -translate-y-1/2"></div>
+  </div>
+  <?php endif; ?>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4">
     <div class="max-w-2xl">
-      <h1 class="font-serif text-3xl md:text-5xl font-bold text-navy mb-4"><?= e($category['name']) ?> Jakarta Utara</h1>
-      <p class="text-gray-600 text-lg mb-6">Toko bunga Jakarta Utara menyediakan <?= e(strtolower($category['name'])) ?> berkualitas tinggi dengan bunga segar pilihan. Pesan sekarang, kirim cepat ke seluruh Jakarta Utara.</p>
+      <h1 class="font-serif text-3xl md:text-5xl font-bold mb-4
+                 <?= !empty($category['image']) ? 'text-white' : 'text-navy' ?>">
+        <?= e($category['name']) ?> Jakarta Utara
+      </h1>
+      <p class="text-lg mb-6 <?= !empty($category['image']) ? 'text-white/85' : 'text-gray-600' ?>">
+        Toko bunga Jakarta Utara menyediakan <?= e(strtolower($category['name'])) ?> berkualitas tinggi dengan bunga segar pilihan. Pesan sekarang, kirim cepat ke seluruh Jakarta Utara.
+      </p>
       <a href="<?= e($wa_url) ?>?text=<?= urlencode('Halo, saya ingin memesan ' . $category['name'] . ' di Jakarta Utara.') ?>" target="_blank"
          class="inline-flex items-center gap-2 bg-sage hover:bg-sage-dark text-white font-bold px-7 py-3.5 rounded-full transition shadow">
         💬 Pesan via WhatsApp

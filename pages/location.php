@@ -64,24 +64,47 @@ require __DIR__ . '/../includes/header.php';
       <!-- Main -->
       <div class="lg:col-span-3 space-y-12">
 
-        <!-- Layanan di area ini -->
-        <div>
-          <h2 class="font-serif text-2xl font-bold text-navy mb-6">
-            Layanan Bunga di <?= e($location['name']) ?>
-          </h2>
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <?php
-            $icons = ['🌸','🕊️','💍','💐','🌿','🎊','🎁','🌼'];
-            foreach ($categories as $i => $cat):
-            ?>
-            <a href="<?= BASE_URL ?>/<?= e($cat['slug']) ?>/"
-               class="group bg-cream hover:bg-sage/10 rounded-xl p-4 text-center border border-cream-dark hover:border-sage/30 transition">
-              <div class="text-3xl mb-2"><?= $icons[$i] ?? '🌺' ?></div>
-              <div class="font-semibold text-navy text-xs leading-tight group-hover:text-sage transition"><?= e($cat['name']) ?></div>
-            </a>
-            <?php endforeach; ?>
-          </div>
+     <!-- Layanan di area ini -->
+<div>
+  <h2 class="font-serif text-2xl font-bold text-navy mb-6">
+    Layanan Bunga di <?= e($location['name']) ?>
+  </h2>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <?php foreach ($categories as $i => $cat):
+      $fallback_colors = ['#FFF0F3','#F0FFF4','#F0F8FF','#FFFBF0','#F8F0FF','#F0FFFC','#FFF8F0','#F5F0FF'];
+      $has_img = !empty($cat['image']);
+      $img_url = $has_img ? e(imgUrl($cat['image'], 'category')) : '';
+    ?>
+    <a href="<?= BASE_URL ?>/<?= e($cat['slug']) ?>/"
+       class="group relative rounded-xl overflow-hidden border border-gray-100 hover:border-sage/40 hover:shadow-md transition-all duration-300 text-center"
+       style="<?= !$has_img ? 'background:' . $fallback_colors[$i % count($fallback_colors)] : '' ?>; min-height: 120px;">
+
+      <?php if ($has_img): ?>
+      <div class="absolute inset-0 overflow-hidden rounded-xl">
+        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+             style="background-image: url('<?= $img_url ?>')"></div>
+        <div class="absolute inset-0 bg-navy/40 group-hover:bg-navy/50 transition-all duration-300"></div>
+      </div>
+      <?php endif; ?>
+
+      <div class="relative z-10 p-4 flex flex-col items-center justify-center h-full" style="min-height:120px">
+        <?php if (!empty($cat['icon'])): ?>
+        <div class="text-2xl mb-1"><?= e($cat['icon']) ?></div>
+        <?php endif; ?>
+        <h3 class="font-serif font-semibold text-xs leading-tight
+                   <?= $has_img ? 'text-white bg-black/40 px-2 py-1 rounded-lg backdrop-blur-sm' : 'text-navy group-hover:text-sage transition' ?>">
+          <?= e($cat['name']) ?>
+        </h3>
+        <div class="mt-2 text-xs font-medium opacity-0 group-hover:opacity-100 transition
+                    <?= $has_img ? 'text-white/90' : 'text-sage' ?>">
+          Lihat →
         </div>
+      </div>
+
+    </a>
+    <?php endforeach; ?>
+  </div>
+</div>
 
         <!-- Produk -->
         <div>

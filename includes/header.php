@@ -105,6 +105,7 @@ tailwind.config = {
 </a>
       <!-- Desktop Nav -->
       <div class="hidden md:flex items-center gap-7 text-sm font-medium text-gray-700">
+        <a href="<?= BASE_URL ?>/#"   class="hover:text-sage transition">Home</a>
         <a href="<?= BASE_URL ?>/#layanan"   class="hover:text-sage transition">Layanan</a>
         <a href="<?= BASE_URL ?>/#produk"    class="hover:text-sage transition">Produk</a>
         <a href="<?= BASE_URL ?>/#area"      class="hover:text-sage transition">Area Kirim</a>

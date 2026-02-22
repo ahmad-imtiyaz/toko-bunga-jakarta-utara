@@ -5,7 +5,7 @@ require __DIR__ . '/../includes/crud_helper.php';
 $page_title   = 'Kelola Kategori';
 $current_page = 'categories';
 
-$msg = handleCrud('categories', ['name','slug','meta_title','meta_description','content','status'], 'categories');
+$msg = handleCrud('categories', ['name','slug','meta_title','meta_description','content','image','status'], 'categories');
 
 $action = $_GET['action'] ?? '';
 $id     = (int)($_GET['id'] ?? 0);
