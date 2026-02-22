@@ -131,6 +131,7 @@ tailwind.config = {
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="md:hidden hidden pb-4 border-t border-cream-dark mt-2">
       <div class="flex flex-col gap-1 pt-3">
+        <a href="<?= BASE_URL ?>/#"   class="hover:text-sage transition">Home</a>
         <a href="<?= BASE_URL ?>/#layanan" class="px-3 py-2 rounded-lg hover:bg-cream text-sm font-medium text-gray-700">Layanan</a>
         <a href="<?= BASE_URL ?>/#produk"  class="px-3 py-2 rounded-lg hover:bg-cream text-sm font-medium text-gray-700">Produk</a>
         <a href="<?= BASE_URL ?>/#area"    class="px-3 py-2 rounded-lg hover:bg-cream text-sm font-medium text-gray-700">Area Kirim</a>
