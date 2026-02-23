@@ -149,15 +149,7 @@ require __DIR__ . '/../includes/header.php';
             <?php endforeach; ?>
           </ul>
 
-          <h3 class="font-serif text-xl font-bold text-navy mt-8 mb-3">Harga Bunga di <?= e($location['name']) ?></h3>
-          <p>Kami menawarkan harga yang terjangkau dan transparan untuk semua jenis bunga di <?= e($location['name']) ?>:</p>
-          <ul class="space-y-1">
-            <li>💐 <strong>Hand Bouquet</strong>: Mulai Rp 300.000</li>
-            <li>🌸 <strong>Karangan Bunga Papan</strong>: Mulai Rp 350.000</li>
-            <li>🌿 <strong>Standing Flower</strong>: Mulai Rp 500.000</li>
-            <li>💍 <strong>Dekorasi Wedding</strong>: Mulai Rp 1.000.000</li>
-            <li>🕊️ <strong>Bunga Duka Cita</strong>: Mulai Rp 350.000</li>
-          </ul>
+         
 
           <h3 class="font-serif text-xl font-bold text-navy mt-8 mb-3">Area Lain yang Kami Layani</h3>
           <p>Selain <?= e($location['name']) ?>, kami juga melayani pengiriman ke kecamatan lain di Jakarta Utara:</p>
