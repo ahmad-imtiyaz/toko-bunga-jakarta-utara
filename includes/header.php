@@ -16,6 +16,7 @@ $phone         = setting('phone_display');
 <meta name="description" content="<?= e($meta_desc) ?>">
 <meta name="keywords" content="<?= e($meta_keywords) ?>">
 <meta name="robots" content="index, follow">
+<link rel="icon" href="<?= BASE_URL ?>/assets/images/icon.png">
 <link rel="canonical" href="<?= e(BASE_URL . '/' . trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/')) ?>">
 
 <!-- Open Graph -->
