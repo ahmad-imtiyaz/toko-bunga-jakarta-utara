@@ -27,22 +27,3 @@
   </div>
 </section>
 
-<script>
-  // Slider Hero
-let index = 0;
-const slider = document.getElementById('heroSlider');
-const totalSlides = slider.children.length;
-
-setInterval(() => {
-  index = (index + 1) % totalSlides;
-  slider.style.transform = `translateX(-${index * 100}%)`;
-}, 5000);
-
-// lain
-function toggleFaq(btn) {
-  const answer = btn.nextElementSibling;
-  const icon   = btn.querySelector('.faq-icon');
-  answer.classList.toggle('hidden');
-  icon.style.transform = answer.classList.contains('hidden') ? '' : 'rotate(180deg)';
-}
-</script>
