@@ -14,6 +14,19 @@ $wa_url     = setting('whatsapp_url');
 
 require __DIR__ . '/../includes/header.php';
 ?>
+<style>
+.loc-content h1 { font-family:'Georgia',serif; font-size:1.9rem; font-weight:800; color:#1a2e4a; margin-bottom:1rem; margin-top:1.5rem; line-height:1.2; }
+.loc-content h2 { font-family:'Georgia',serif; font-size:1.45rem; font-weight:700; color:#1a2e4a; margin-bottom:0.75rem; margin-top:1.25rem; line-height:1.3; }
+.loc-content h3 { font-family:'Georgia',serif; font-size:1.15rem; font-weight:700; color:#4a7c6b; margin-bottom:0.5rem; margin-top:1rem; }
+.loc-content p  { margin-bottom:0.75rem; }
+.loc-content ul { list-style:disc; padding-left:1.5rem; margin-bottom:0.75rem; }
+.loc-content ol { list-style:decimal; padding-left:1.5rem; margin-bottom:0.75rem; }
+.loc-content li { margin-bottom:0.25rem; }
+.loc-content strong { color:#1a2e4a; font-weight:700; }
+.loc-content em { color:#4a7c6b; font-style:italic; }
+.loc-content a  { color:#4a7c6b; text-decoration:underline; transition:color .2s ease; }
+.loc-content a:hover { color:#2d5c4a; }
+</style>
 
 <!-- Breadcrumb -->
 <div class="bg-white border-b border-cream-dark">
@@ -134,7 +147,7 @@ require __DIR__ . '/../includes/header.php';
         </div>
 
         <!-- Long form SEO content -->
-        <div class="prose max-w-none text-gray-600">
+        <div class="prose max-w-none text-gray-600 loc-content">
           <h2 class="font-serif text-2xl font-bold text-navy mb-4">
             Toko Bunga <?= e($location['name']) ?> Terpercaya & Berpengalaman
           </h2>
