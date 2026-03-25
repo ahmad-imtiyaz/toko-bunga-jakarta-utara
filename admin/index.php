@@ -108,11 +108,16 @@ $page = $_GET['page'] ?? '';
 $current_page = $page;
 
 switch ($page) {
-    case 'products':     require __DIR__ . '/pages/products.php';     break;
-    case 'categories':   require __DIR__ . '/pages/categories.php';   break;
-    case 'locations':    require __DIR__ . '/pages/locations.php';     break;
-    case 'testimonials': require __DIR__ . '/pages/testimonials.php'; break;
-    case 'faqs':         require __DIR__ . '/pages/faqs.php';         break;
-    case 'settings':     require __DIR__ . '/pages/settings.php';     break;
-    default:             require __DIR__ . '/pages/dashboard.php';    break;
+    case 'products':         require __DIR__ . '/pages/products.php'; break;
+    case 'categories':       require __DIR__ . '/pages/categories.php'; break;
+    case 'locations':        require __DIR__ . '/pages/locations.php'; break;
+    case 'testimonials':     require __DIR__ . '/pages/testimonials.php'; break;
+    case 'faqs':             require __DIR__ . '/pages/faqs.php'; break;
+    case 'settings':         require __DIR__ . '/pages/settings.php'; break;
+
+    // ✅ TAMBAHAN BLOG
+    case 'blog':             require __DIR__ . '/pages/blog.php'; break;
+    case 'blog-categories':  require __DIR__ . '/pages/blog-categories.php'; break;
+
+    default:                 require __DIR__ . '/pages/dashboard.php'; break;
 }

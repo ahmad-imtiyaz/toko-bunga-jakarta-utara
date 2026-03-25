@@ -40,6 +40,38 @@ if ($location) {
     exit;
 }
 
+// ============================================================
+// BLOG ROUTES
+// ============================================================
+
+// Halaman blog list → /blog
+if ($uri === 'blog') {
+    require __DIR__ . '/pages/blog.php';
+    exit;
+}
+
+// Halaman detail blog → /blog/judul-artikel
+if (preg_match('#^blog/([a-z0-9-]+)/?$#', $uri, $m)) {
+    $blog_slug = $m[1];
+
+    $stmt = db()->prepare("
+        SELECT b.*, bc.name AS cat_name, bc.slug AS cat_slug
+        FROM blogs b
+        LEFT JOIN blog_categories bc ON b.blog_category_id = bc.id
+        WHERE b.slug = ? AND b.status = 'active'
+        LIMIT 1
+    ");
+    $stmt->execute([$blog_slug]);
+    $blog = $stmt->fetch();
+
+    if ($blog) {
+        require __DIR__ . '/pages/blog-detail.php';
+    } else {
+        http_response_code(404);
+        require __DIR__ . '/pages/404.php';
+    }
+    exit;
+}
 // Static pages
 switch ($uri) {
     case 'layanan':
