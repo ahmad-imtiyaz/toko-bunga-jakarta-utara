@@ -52,15 +52,6 @@ $wa_url    = setting('whatsapp_url');
 
 require __DIR__ . '/../includes/header.php';
 ?>
-<style>
-@media(max-width:1023px){
-  /* Sembunyikan sidebar desktop di mobile */
-  .blog-detail-sidebar-desktop{display:none !important;}
-  /* Grid jadi 1 kolom */
-  .blog-detail-grid{grid-template-columns:1fr !important;}
-}
-</style>
-
 <!-- FIX OVERFLOW: root wrapper -->
 <div style="overflow-x:hidden; width:100%;">
 
