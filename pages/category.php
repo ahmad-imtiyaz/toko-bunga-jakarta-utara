@@ -16,6 +16,15 @@ $all_cats = db()->query("SELECT * FROM categories WHERE status='active' ORDER BY
 $locations = db()->query("SELECT * FROM locations WHERE status='active' ORDER BY id")->fetchAll();
 $wa_url    = setting('whatsapp_url');
 
+$locations = db()->query("SELECT * FROM locations WHERE status='active' ORDER BY id")->fetchAll();
+$wa_url    = setting('whatsapp_url');
+
+// ── Slider kalkulasi ──
+$slider_per_page    = 10;
+$slider_total       = count($locations);
+$slider_pages       = (int)ceil($slider_total / $slider_per_page);
+$slider_active_page = 0; // kategori tidak punya lokasi aktif, mulai dari halaman 1
+
 require __DIR__ . '/../includes/header.php';
 ?>
 
@@ -152,19 +161,59 @@ require __DIR__ . '/../includes/header.php';
         </div>
 
         <!-- Area -->
-        <div class="bg-navy rounded-2xl p-5 text-white">
-          <h3 class="font-serif font-bold mb-4 text-sky">Area Pengiriman</h3>
-          <ul class="space-y-2">
-            <?php foreach ($locations as $l): ?>
-            <li>
-              <a href="<?= BASE_URL ?>/<?= e($l['slug']) ?>/"
-                 class="flex items-center gap-2 text-sm text-gray-300 hover:text-sky transition py-0.5">
-                <span class="text-sage text-xs">📍</span> <?= e($l['name']) ?>
-              </a>
-            </li>
-            <?php endforeach; ?>
-          </ul>
-        </div>
+<div class="bg-navy rounded-2xl p-5 text-white">
+  <h3 class="font-serif font-bold mb-4 text-sky">Area Pengiriman</h3>
+
+  <?php for ($p = 0; $p < $slider_pages; $p++): ?>
+  <ul id="catAreaPage<?= $p ?>"
+      style="list-style:none; margin:0; padding:0; min-height:220px;
+             <?= $p !== $slider_active_page ? 'display:none;' : '' ?>">
+    <?php
+    $slice = array_slice($locations, $p * $slider_per_page, $slider_per_page);
+    foreach ($slice as $l):
+    ?>
+    <li>
+      <a href="<?= BASE_URL ?>/<?= e($l['slug']) ?>/"
+         style="display:flex; align-items:center; gap:8px; font-size:13px; padding:5px 0;
+                border-bottom:1px solid rgba(255,255,255,.07); text-decoration:none;
+                color:rgba(209,213,219,1);"
+         onmouseenter="this.style.color='#7dd3fc'"
+         onmouseleave="this.style.color='rgba(209,213,219,1)'">
+        <span style="font-size:11px; color:#4a7c6b;">📍</span><?= e($l['name']) ?>
+      </a>
+    </li>
+    <?php endforeach; ?>
+  </ul>
+  <?php endfor; ?>
+
+  <?php if ($slider_pages > 1): ?>
+  <div style="display:flex; align-items:center; justify-content:space-between; margin-top:12px;">
+    <button id="catAreaPrev" onclick="catAreaSlider(-1)"
+            style="font-size:11px; padding:4px 10px; border-radius:7px;
+                   border:1px solid rgba(255,255,255,.15); background:rgba(255,255,255,.07);
+                   color:rgba(255,255,255,.5); cursor:pointer;">
+      ‹ Prev
+    </button>
+
+    <div style="display:flex; gap:4px; align-items:center;">
+      <?php for ($p = 0; $p < $slider_pages; $p++): ?>
+      <span id="catAreaDot<?= $p ?>" onclick="catAreaGoPage(<?= $p ?>)"
+            style="display:inline-block; height:5px; border-radius:3px; cursor:pointer; transition:all .2s;
+                   width:<?= $p === $slider_active_page ? '14px' : '5px' ?>;
+                   background:<?= $p === $slider_active_page ? '#7dd3fc' : 'rgba(255,255,255,.2)' ?>;"></span>
+      <?php endfor; ?>
+    </div>
+
+    <button id="catAreaNext" onclick="catAreaSlider(1)"
+            style="font-size:11px; padding:4px 10px; border-radius:7px;
+                   border:1px solid rgba(255,255,255,.15); background:rgba(255,255,255,.07);
+                   color:rgba(255,255,255,.5); cursor:pointer;">
+      Next ›
+    </button>
+  </div>
+  <p id="catAreaInfo" style="text-align:center; font-size:11px; color:rgba(255,255,255,.25); margin-top:5px;"></p>
+  <?php endif; ?>
+</div>
 
         <!-- WA Card -->
         <div class="bg-green-50 border border-green-200 rounded-2xl p-5 text-center">
@@ -180,5 +229,53 @@ require __DIR__ . '/../includes/header.php';
     </div>
   </div>
 </section>
+<script>
+(function() {
+  var perPage = <?= $slider_per_page ?>;
+  var total   = <?= $slider_total ?>;
+  var pages   = <?= $slider_pages ?>;
+  var cur     = <?= $slider_active_page ?>;
+
+  function update() {
+    for (var i = 0; i < pages; i++) {
+      var el = document.getElementById('catAreaPage' + i);
+      if (el) el.style.display = (i === cur) ? '' : 'none';
+    }
+    for (var i = 0; i < pages; i++) {
+      var dot = document.getElementById('catAreaDot' + i);
+      if (!dot) continue;
+      dot.style.width      = (i === cur) ? '14px' : '5px';
+      dot.style.background = (i === cur) ? '#7dd3fc' : 'rgba(255,255,255,.2)';
+    }
+    var prev = document.getElementById('catAreaPrev');
+    var next = document.getElementById('catAreaNext');
+    if (prev) {
+      prev.disabled      = (cur === 0);
+      prev.style.opacity = (cur === 0) ? '0.3' : '1';
+      prev.style.cursor  = (cur === 0) ? 'not-allowed' : 'pointer';
+      prev.onmouseenter  = function() { if (!prev.disabled) { prev.style.background='rgba(255,255,255,.15)'; prev.style.color='#fff'; }};
+      prev.onmouseleave  = function() { prev.style.background='rgba(255,255,255,.07)'; prev.style.color='rgba(255,255,255,.5)'; };
+    }
+    if (next) {
+      next.disabled      = (cur === pages - 1);
+      next.style.opacity = (cur === pages - 1) ? '0.3' : '1';
+      next.style.cursor  = (cur === pages - 1) ? 'not-allowed' : 'pointer';
+      next.onmouseenter  = function() { if (!next.disabled) { next.style.background='rgba(255,255,255,.15)'; next.style.color='#fff'; }};
+      next.onmouseleave  = function() { next.style.background='rgba(255,255,255,.07)'; next.style.color='rgba(255,255,255,.5)'; };
+    }
+    var info = document.getElementById('catAreaInfo');
+    if (info) {
+      var start = cur * perPage + 1;
+      var end   = Math.min((cur + 1) * perPage, total);
+      info.textContent = start + '–' + end + ' dari ' + total + ' area';
+    }
+  }
+
+  window.catAreaSlider  = function(dir) { cur = Math.max(0, Math.min(pages - 1, cur + dir)); update(); };
+  window.catAreaGoPage  = function(p)   { cur = p; update(); };
+
+  update();
+})();
+</script>
 
 <?php require __DIR__ . '/../includes/footer.php'; ?>

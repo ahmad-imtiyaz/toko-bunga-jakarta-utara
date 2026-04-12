@@ -12,6 +12,13 @@ $locations  = db()->query("SELECT * FROM locations WHERE status='active' ORDER B
 $faqs       = db()->query("SELECT * FROM faqs WHERE status='active' ORDER BY urutan LIMIT 5")->fetchAll();
 $wa_url     = setting('whatsapp_url');
 
+// ── Slider kalkulasi (harus di sini, sebelum header) ──
+$slider_per_page    = 10;
+$slider_total       = count($locations);
+$slider_pages       = (int)ceil($slider_total / $slider_per_page);
+$slider_active_idx  = array_search($location['id'], array_column($locations, 'id'));
+$slider_active_page = ($slider_active_idx !== false) ? (int)floor($slider_active_idx / $slider_per_page) : 0;
+
 require __DIR__ . '/../includes/header.php';
 ?>
 <style>
@@ -77,47 +84,44 @@ require __DIR__ . '/../includes/header.php';
       <!-- Main -->
       <div class="lg:col-span-3 space-y-12">
 
-     <!-- Layanan di area ini -->
-<div>
-  <h2 class="font-serif text-2xl font-bold text-navy mb-6">
-    Layanan Bunga di <?= e($location['name']) ?>
-  </h2>
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-    <?php foreach ($categories as $i => $cat):
-      $fallback_colors = ['#FFF0F3','#F0FFF4','#F0F8FF','#FFFBF0','#F8F0FF','#F0FFFC','#FFF8F0','#F5F0FF'];
-      $has_img = !empty($cat['image']);
-      $img_url = $has_img ? e(imgUrl($cat['image'], 'category')) : '';
-    ?>
-    <a href="<?= BASE_URL ?>/<?= e($cat['slug']) ?>/"
-       class="group relative rounded-xl overflow-hidden border border-gray-100 hover:border-sage/40 hover:shadow-md transition-all duration-300 text-center"
-       style="<?= !$has_img ? 'background:' . $fallback_colors[$i % count($fallback_colors)] : '' ?>; min-height: 120px;">
-
-      <?php if ($has_img): ?>
-      <div class="absolute inset-0 overflow-hidden rounded-xl">
-        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-             style="background-image: url('<?= $img_url ?>')"></div>
-        <div class="absolute inset-0 bg-navy/40 group-hover:bg-navy/50 transition-all duration-300"></div>
-      </div>
-      <?php endif; ?>
-
-      <div class="relative z-10 p-4 flex flex-col items-center justify-center h-full" style="min-height:120px">
-        <?php if (!empty($cat['icon'])): ?>
-        <div class="text-2xl mb-1"><?= e($cat['icon']) ?></div>
-        <?php endif; ?>
-        <h3 class="font-serif font-semibold text-xs leading-tight
-                   <?= $has_img ? 'text-white bg-black/40 px-2 py-1 rounded-lg backdrop-blur-sm' : 'text-navy group-hover:text-sage transition' ?>">
-          <?= e($cat['name']) ?>
-        </h3>
-        <div class="mt-2 text-xs font-medium opacity-0 group-hover:opacity-100 transition
-                    <?= $has_img ? 'text-white/90' : 'text-sage' ?>">
-          Lihat →
+        <!-- Layanan di area ini -->
+        <div>
+          <h2 class="font-serif text-2xl font-bold text-navy mb-6">
+            Layanan Bunga di <?= e($location['name']) ?>
+          </h2>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <?php foreach ($categories as $i => $cat):
+              $fallback_colors = ['#FFF0F3','#F0FFF4','#F0F8FF','#FFFBF0','#F8F0FF','#F0FFFC','#FFF8F0','#F5F0FF'];
+              $has_img = !empty($cat['image']);
+              $img_url = $has_img ? e(imgUrl($cat['image'], 'category')) : '';
+            ?>
+            <a href="<?= BASE_URL ?>/<?= e($cat['slug']) ?>/"
+               class="group relative rounded-xl overflow-hidden border border-gray-100 hover:border-sage/40 hover:shadow-md transition-all duration-300 text-center"
+               style="<?= !$has_img ? 'background:' . $fallback_colors[$i % count($fallback_colors)] : '' ?>; min-height: 120px;">
+              <?php if ($has_img): ?>
+              <div class="absolute inset-0 overflow-hidden rounded-xl">
+                <div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                     style="background-image: url('<?= $img_url ?>')"></div>
+                <div class="absolute inset-0 bg-navy/40 group-hover:bg-navy/50 transition-all duration-300"></div>
+              </div>
+              <?php endif; ?>
+              <div class="relative z-10 p-4 flex flex-col items-center justify-center h-full" style="min-height:120px">
+                <?php if (!empty($cat['icon'])): ?>
+                <div class="text-2xl mb-1"><?= e($cat['icon']) ?></div>
+                <?php endif; ?>
+                <h3 class="font-serif font-semibold text-xs leading-tight
+                           <?= $has_img ? 'text-white bg-black/40 px-2 py-1 rounded-lg backdrop-blur-sm' : 'text-navy group-hover:text-sage transition' ?>">
+                  <?= e($cat['name']) ?>
+                </h3>
+                <div class="mt-2 text-xs font-medium opacity-0 group-hover:opacity-100 transition
+                            <?= $has_img ? 'text-white/90' : 'text-sage' ?>">
+                  Lihat →
+                </div>
+              </div>
+            </a>
+            <?php endforeach; ?>
+          </div>
         </div>
-      </div>
-
-    </a>
-    <?php endforeach; ?>
-  </div>
-</div>
 
         <!-- Produk -->
         <div>
@@ -161,8 +165,6 @@ require __DIR__ . '/../includes/header.php';
             <li>✅ <a href="<?= BASE_URL ?>/<?= e($cat['slug']) ?>/" class="text-sage hover:underline"><?= e($cat['name']) ?></a> di <?= e($location['name']) ?></li>
             <?php endforeach; ?>
           </ul>
-
-         
 
           <h3 class="font-serif text-xl font-bold text-navy mt-8 mb-3">Area Lain yang Kami Layani</h3>
           <p>Selain <?= e($location['name']) ?>, kami juga melayani pengiriman ke kecamatan lain di Jakarta Utara:</p>
@@ -211,19 +213,61 @@ require __DIR__ . '/../includes/header.php';
 
       <!-- Sidebar -->
       <div class="lg:col-span-1 space-y-5">
-        <!-- Area lain -->
+
+        <!-- Area Lainnya (Slider) -->
         <div class="bg-cream rounded-2xl p-5 border border-cream-dark">
-          <h3 class="font-serif font-bold text-navy mb-4">Area Lainnya</h3>
-          <ul class="space-y-2">
-            <?php foreach ($locations as $l): ?>
+          <h3 class="font-serif font-bold text-navy mb-3">Area Lainnya</h3>
+
+          <!-- Render semua halaman, hidden kecuali halaman aktif -->
+          <?php for ($p = 0; $p < $slider_pages; $p++): ?>
+          <ul id="areaPage<?= $p ?>"
+              <?= $p !== $slider_active_page ? 'style="display:none"' : '' ?>
+              style="min-height:220px; <?= $p !== $slider_active_page ? 'display:none;' : '' ?> list-style:none; margin:0; padding:0;">
+            <?php
+            $slice = array_slice($locations, $p * $slider_per_page, $slider_per_page);
+            foreach ($slice as $l):
+            ?>
             <li>
               <a href="<?= BASE_URL ?>/<?= e($l['slug']) ?>/"
-                 class="flex items-center gap-2 text-sm py-1 transition <?= $l['id'] == $location['id'] ? 'text-sage font-semibold' : 'text-gray-600 hover:text-sage' ?>">
-                <span class="text-xs">📍</span> <?= e($l['name']) ?>
+                 style="display:flex; align-items:center; gap:8px; font-size:14px; padding:6px 0;
+                        border-bottom:1px solid #e5e7eb; text-decoration:none;
+                        color:<?= $l['id'] == $location['id'] ? '#4a7c6b' : '#4b5563' ?>;
+                        font-weight:<?= $l['id'] == $location['id'] ? '600' : '400' ?>;">
+                <span style="font-size:11px;">📍</span><?= e($l['name']) ?>
               </a>
             </li>
             <?php endforeach; ?>
           </ul>
+          <?php endfor; ?>
+
+          <!-- Navigasi -->
+          <?php if ($slider_pages > 1): ?>
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-top:12px;">
+            <button id="areaPrev" onclick="areaSlider(-1)"
+                    style="font-size:12px; padding:5px 12px; border-radius:8px;
+                           border:1px solid #d1d5db; background:#fff; color:#6b7280; cursor:pointer;">
+              ‹ Prev
+            </button>
+
+            <div id="areaDots" style="display:flex; gap:5px; align-items:center;">
+              <?php for ($p = 0; $p < $slider_pages; $p++): ?>
+              <span onclick="areaGoPage(<?= $p ?>)"
+                    id="areaDot<?= $p ?>"
+                    style="display:inline-block; width:<?= $p === $slider_active_page ? '16px' : '6px' ?>;
+                           height:6px; border-radius:3px; cursor:pointer; transition:all .2s;
+                           background:<?= $p === $slider_active_page ? '#4a7c6b' : '#d1d5db' ?>;"></span>
+              <?php endfor; ?>
+            </div>
+
+            <button id="areaNext" onclick="areaSlider(1)"
+                    style="font-size:12px; padding:5px 12px; border-radius:8px;
+                           border:1px solid #d1d5db; background:#fff; color:#6b7280; cursor:pointer;">
+              Next ›
+            </button>
+          </div>
+
+          <p id="areaPageInfo" style="text-align:center; font-size:11px; color:#9ca3af; margin-top:6px;"></p>
+          <?php endif; ?>
         </div>
 
         <!-- Layanan -->
@@ -251,6 +295,7 @@ require __DIR__ . '/../includes/header.php';
           </ul>
         </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -264,4 +309,78 @@ function toggleFaq(btn) {
   answer.classList.toggle('hidden');
   icon.style.transform = answer.classList.contains('hidden') ? '' : 'rotate(180deg)';
 }
+
+(function() {
+  var perPage   = <?= $slider_per_page ?>;
+  var total     = <?= $slider_total ?>;
+  var pages     = <?= $slider_pages ?>;
+  var cur       = <?= $slider_active_page ?>;
+
+  function update() {
+    // Tampilkan/sembunyikan halaman
+    for (var i = 0; i < pages; i++) {
+      var el = document.getElementById('areaPage' + i);
+      if (el) el.style.display = (i === cur) ? '' : 'none';
+    }
+
+    // Update dots
+    for (var i = 0; i < pages; i++) {
+      var dot = document.getElementById('areaDot' + i);
+      if (!dot) continue;
+      dot.style.width      = (i === cur) ? '16px' : '6px';
+      dot.style.background = (i === cur) ? '#4a7c6b' : '#d1d5db';
+    }
+
+    // Update tombol prev/next
+    var prev = document.getElementById('areaPrev');
+    var next = document.getElementById('areaNext');
+    if (prev) {
+      prev.disabled      = (cur === 0);
+      prev.style.opacity = (cur === 0) ? '0.35' : '1';
+      prev.style.cursor  = (cur === 0) ? 'not-allowed' : 'pointer';
+    }
+    if (next) {
+      next.disabled      = (cur === pages - 1);
+      next.style.opacity = (cur === pages - 1) ? '0.35' : '1';
+      next.style.cursor  = (cur === pages - 1) ? 'not-allowed' : 'pointer';
+    }
+
+    // Hover effect tombol
+    [prev, next].forEach(function(btn) {
+      if (!btn) return;
+      btn.onmouseenter = function() {
+        if (!btn.disabled) {
+          btn.style.background   = '#4a7c6b';
+          btn.style.color        = '#fff';
+          btn.style.borderColor  = '#4a7c6b';
+        }
+      };
+      btn.onmouseleave = function() {
+        btn.style.background  = '#fff';
+        btn.style.color       = '#6b7280';
+        btn.style.borderColor = '#d1d5db';
+      };
+    });
+
+    // Info halaman
+    var info = document.getElementById('areaPageInfo');
+    if (info) {
+      var start = cur * perPage + 1;
+      var end   = Math.min((cur + 1) * perPage, total);
+      info.textContent = start + '–' + end + ' dari ' + total + ' area';
+    }
+  }
+
+  window.areaSlider = function(dir) {
+    cur = Math.max(0, Math.min(pages - 1, cur + dir));
+    update();
+  };
+
+  window.areaGoPage = function(p) {
+    cur = p;
+    update();
+  };
+
+  update();
+})();
 </script>
