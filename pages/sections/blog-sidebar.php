@@ -125,19 +125,65 @@ $sidebar_categories = db()->query("
   </div>
 
   <!-- ── Area Pengiriman ────────────────────────────── -->
-  <div class="bg-navy rounded-2xl p-5 text-white">
-    <h3 class="font-serif font-bold mb-4 text-sky text-base">Area Pengiriman</h3>
-    <ul class="space-y-1.5">
-      <?php foreach ($locations as $l): ?>
-      <li>
-        <a href="<?= BASE_URL ?>/<?= e($l['slug']) ?>/"
-           class="flex items-center gap-2 text-sm text-gray-300 hover:text-sky transition py-0.5">
-          <span class="text-sage text-xs">📍</span> <?= e($l['name']) ?>
-        </a>
-      </li>
-      <?php endforeach; ?>
-    </ul>
+<div class="bg-navy rounded-2xl p-5 text-white">
+  <h3 class="font-serif font-bold mb-4 text-sky text-base">Area Pengiriman</h3>
+
+  <?php
+  $blog_d_per_page = 10;
+  $blog_d_total    = count($locations);
+  $blog_d_pages    = (int)ceil($blog_d_total / $blog_d_per_page);
+  ?>
+
+  <?php for ($p = 0; $p < $blog_d_pages; $p++): ?>
+  <ul id="blogDAreaPage<?= $p ?>"
+      style="list-style:none; margin:0; padding:0; min-height:200px;
+             <?= $p !== 0 ? 'display:none;' : '' ?>">
+    <?php
+    $slice = array_slice($locations, $p * $blog_d_per_page, $blog_d_per_page);
+    foreach ($slice as $l):
+    ?>
+    <li>
+      <a href="<?= BASE_URL ?>/<?= e($l['slug']) ?>/"
+         style="display:flex; align-items:center; gap:8px; font-size:13px; padding:5px 0;
+                border-bottom:1px solid rgba(255,255,255,.07); text-decoration:none;
+                color:rgba(209,213,219,1);"
+         onmouseenter="this.style.color='#7dd3fc'"
+         onmouseleave="this.style.color='rgba(209,213,219,1)'">
+        <span style="font-size:11px; color:#4a7c6b;">📍</span><?= e($l['name']) ?>
+      </a>
+    </li>
+    <?php endforeach; ?>
+  </ul>
+  <?php endfor; ?>
+
+  <?php if ($blog_d_pages > 1): ?>
+  <div style="display:flex; align-items:center; justify-content:space-between; margin-top:12px;">
+    <button id="blogDAreaPrev" onclick="blogDAreaSlider(-1)"
+            style="font-size:11px; padding:4px 10px; border-radius:7px;
+                   border:1px solid rgba(255,255,255,.15); background:rgba(255,255,255,.07);
+                   color:rgba(255,255,255,.5); cursor:pointer;">
+      ‹ Prev
+    </button>
+
+    <div style="display:flex; gap:4px; align-items:center;">
+      <?php for ($p = 0; $p < $blog_d_pages; $p++): ?>
+      <span id="blogDAreaDot<?= $p ?>" onclick="blogDAreaGoPage(<?= $p ?>)"
+            style="display:inline-block; height:5px; border-radius:3px; cursor:pointer; transition:all .2s;
+                   width:<?= $p === 0 ? '14px' : '5px' ?>;
+                   background:<?= $p === 0 ? '#7dd3fc' : 'rgba(255,255,255,.2)' ?>;"></span>
+      <?php endfor; ?>
+    </div>
+
+    <button id="blogDAreaNext" onclick="blogDAreaSlider(1)"
+            style="font-size:11px; padding:4px 10px; border-radius:7px;
+                   border:1px solid rgba(255,255,255,.15); background:rgba(255,255,255,.07);
+                   color:rgba(255,255,255,.5); cursor:pointer;">
+      Next ›
+    </button>
   </div>
+  <p id="blogDAreaInfo" style="text-align:center; font-size:11px; color:rgba(255,255,255,.25); margin-top:5px;"></p>
+  <?php endif; ?>
+</div>
 
 </aside>
 
@@ -191,6 +237,53 @@ $sidebar_categories = db()->query("
   }
 
   window.slideCatDesktop = function(dir) { goTo(current + dir); };
+})();
+// ── Area Pengiriman slider (blog desktop) ─────────────────
+(function() {
+  var perPage = <?= $blog_d_per_page ?>;
+  var total   = <?= $blog_d_total ?>;
+  var pages   = <?= $blog_d_pages ?>;
+  var cur     = 0;
+
+  function update() {
+    for (var i = 0; i < pages; i++) {
+      var el = document.getElementById('blogDAreaPage' + i);
+      if (el) el.style.display = (i === cur) ? '' : 'none';
+    }
+    for (var i = 0; i < pages; i++) {
+      var dot = document.getElementById('blogDAreaDot' + i);
+      if (!dot) continue;
+      dot.style.width      = (i === cur) ? '14px' : '5px';
+      dot.style.background = (i === cur) ? '#7dd3fc' : 'rgba(255,255,255,.2)';
+    }
+    var prev = document.getElementById('blogDAreaPrev');
+    var next = document.getElementById('blogDAreaNext');
+    if (prev) {
+      prev.disabled      = (cur === 0);
+      prev.style.opacity = (cur === 0) ? '0.3' : '1';
+      prev.style.cursor  = (cur === 0) ? 'not-allowed' : 'pointer';
+      prev.onmouseenter  = function() { if (!prev.disabled) { prev.style.background='rgba(255,255,255,.15)'; prev.style.color='#fff'; }};
+      prev.onmouseleave  = function() { prev.style.background='rgba(255,255,255,.07)'; prev.style.color='rgba(255,255,255,.5)'; };
+    }
+    if (next) {
+      next.disabled      = (cur === pages - 1);
+      next.style.opacity = (cur === pages - 1) ? '0.3' : '1';
+      next.style.cursor  = (cur === pages - 1) ? 'not-allowed' : 'pointer';
+      next.onmouseenter  = function() { if (!next.disabled) { next.style.background='rgba(255,255,255,.15)'; next.style.color='#fff'; }};
+      next.onmouseleave  = function() { next.style.background='rgba(255,255,255,.07)'; next.style.color='rgba(255,255,255,.5)'; };
+    }
+    var info = document.getElementById('blogDAreaInfo');
+    if (info) {
+      var start = cur * perPage + 1;
+      var end   = Math.min((cur + 1) * perPage, total);
+      info.textContent = start + '–' + end + ' dari ' + total + ' area';
+    }
+  }
+
+  window.blogDAreaSlider  = function(dir) { cur = Math.max(0, Math.min(pages - 1, cur + dir)); update(); };
+  window.blogDAreaGoPage  = function(p)   { cur = p; update(); };
+
+  update();
 })();
 </script>
 
