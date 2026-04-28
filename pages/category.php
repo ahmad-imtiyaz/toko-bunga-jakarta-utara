@@ -27,6 +27,104 @@ $slider_active_page = 0; // kategori tidak punya lokasi aktif, mulai dari halama
 
 require __DIR__ . '/../includes/header.php';
 ?>
+<style>
+  /* ── Prose fallback untuk Jakarta Utara template ── */
+.prose h2, .prose h3, .prose h4 {
+  font-family: serif;
+  font-weight: 700;
+  color: #1e3a5f; /* navy */
+  margin-top: 28px;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+.prose h2 { font-size: 22px; }
+.prose h3 { font-size: 18px; }
+.prose h4 { font-size: 15px; }
+
+.prose p {
+  font-size: 15px;
+  line-height: 1.85;
+  color: #4b5563;
+  margin-bottom: 14px;
+}
+
+.prose ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px 0;
+}
+.prose ul li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 14px;
+  color: #4b5563;
+  line-height: 1.85;
+  margin-bottom: 6px;
+}
+.prose ul li::before {
+  content: '✅';
+  font-size: 12px;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.prose ol {
+  list-style: decimal;
+  padding-left: 20px;
+  margin-bottom: 16px;
+}
+.prose ol li {
+  font-size: 14px;
+  color: #4b5563;
+  line-height: 1.85;
+  margin-bottom: 6px;
+}
+
+.prose strong, .prose b {
+  color: #1e3a5f;
+  font-weight: 700;
+}
+
+.prose a {
+  color: #4a7c6b; /* sage */
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose a:hover { opacity: .75; }
+
+.prose blockquote {
+  border-left: 3px solid #4a7c6b;
+  margin: 20px 0;
+  padding: 10px 16px;
+  background: #f5f0e8;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: #6b7280;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  font-size: 13.5px;
+}
+.prose table th {
+  background: #1e3a5f;
+  color: #fff;
+  padding: 9px 13px;
+  text-align: left;
+  font-weight: 600;
+}
+.prose table td {
+  padding: 8px 13px;
+  border-bottom: 1px solid #e5e7eb;
+  color: #4b5563;
+}
+.prose table tr:nth-child(even) td {
+  background: #f9fafb;
+}
+  </style>
 
 <!-- Breadcrumb -->
 <div class="bg-white border-b border-cream-dark">
