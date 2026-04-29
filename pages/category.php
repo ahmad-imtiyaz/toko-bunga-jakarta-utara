@@ -28,32 +28,55 @@ $slider_active_page = 0; // kategori tidak punya lokasi aktif, mulai dari halama
 require __DIR__ . '/../includes/header.php';
 ?>
 <style>
-  /* ── Prose fallback untuk Jakarta Utara template ── */
-.prose h2, .prose h3, .prose h4 {
+/* ── Konten dari database ── */
+.prose-db h1 {
   font-family: serif;
-  font-weight: 700;
-  color: #1e3a5f; /* navy */
+  font-size: 26px !important;
+  font-weight: 800 !important;
+  color: #1e3a5f !important;
+  margin-top: 28px;
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+.prose-db h2 {
+  font-family: serif;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  color: #1e3a5f !important;
   margin-top: 28px;
   margin-bottom: 10px;
   line-height: 1.3;
 }
-.prose h2 { font-size: 22px; }
-.prose h3 { font-size: 18px; }
-.prose h4 { font-size: 15px; }
-
-.prose p {
+.prose-db h3 {
+  font-family: serif;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  color: #1e3a5f !important;
+  margin-top: 28px;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+.prose-db h4 {
+  font-family: serif;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: #1e3a5f !important;
+  margin-top: 20px;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.prose-db p {
   font-size: 15px;
   line-height: 1.85;
   color: #4b5563;
   margin-bottom: 14px;
 }
-
-.prose ul {
+.prose-db ul {
   list-style: none;
   padding: 0;
   margin: 0 0 16px 0;
 }
-.prose ul li {
+.prose-db ul li {
   display: flex;
   align-items: flex-start;
   gap: 8px;
@@ -62,38 +85,32 @@ require __DIR__ . '/../includes/header.php';
   line-height: 1.85;
   margin-bottom: 6px;
 }
-.prose ul li::before {
+.prose-db ul li::before {
   content: '✅';
   font-size: 12px;
   flex-shrink: 0;
   margin-top: 3px;
 }
-
-.prose ol {
+.prose-db ol {
   list-style: decimal;
   padding-left: 20px;
   margin-bottom: 16px;
 }
-.prose ol li {
+.prose-db ol li {
   font-size: 14px;
   color: #4b5563;
   line-height: 1.85;
   margin-bottom: 6px;
 }
-
-.prose strong, .prose b {
-  color: #1e3a5f;
-  font-weight: 700;
-}
-
-.prose a {
-  color: #4a7c6b; /* sage */
+.prose-db strong, .prose-db b { color: #1e3a5f; font-weight: 700; }
+.prose-db em, .prose-db i    { font-style: italic; color: #6b7280; }
+.prose-db a {
+  color: #4a7c6b;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-.prose a:hover { opacity: .75; }
-
-.prose blockquote {
+.prose-db a:hover { opacity: .75; }
+.prose-db blockquote {
   border-left: 3px solid #4a7c6b;
   margin: 20px 0;
   padding: 10px 16px;
@@ -102,29 +119,26 @@ require __DIR__ . '/../includes/header.php';
   font-style: italic;
   color: #6b7280;
 }
-
-.prose table {
+.prose-db table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
   font-size: 13.5px;
 }
-.prose table th {
+.prose-db table th {
   background: #1e3a5f;
   color: #fff;
   padding: 9px 13px;
   text-align: left;
   font-weight: 600;
 }
-.prose table td {
+.prose-db table td {
   padding: 8px 13px;
   border-bottom: 1px solid #e5e7eb;
   color: #4b5563;
 }
-.prose table tr:nth-child(even) td {
-  background: #f9fafb;
-}
-  </style>
+.prose-db table tr:nth-child(even) td { background: #f9fafb; }
+</style>
 
 <!-- Breadcrumb -->
 <div class="bg-white border-b border-cream-dark">
@@ -204,19 +218,30 @@ require __DIR__ . '/../includes/header.php';
         </div>
         <?php endif; ?>
 
-        <!-- Long content for SEO -->
-        <div class="prose max-w-none text-gray-600">
-          <h2 class="font-serif text-2xl font-bold text-navy mb-4"><?= e($category['name']) ?> Terbaik di Jakarta Utara</h2>
-          <?= $category['content'] ?>
-          <p>Kami sebagai <strong>florist Jakarta Utara</strong> terpercaya menyediakan <?= e(strtolower($category['name'])) ?> berkualitas tinggi dengan harga terjangkau. Setiap rangkaian bunga dibuat oleh tim florist profesional kami menggunakan bunga segar yang dipilih setiap hari.</p>
-          <h3 class="font-serif text-xl font-bold text-navy mt-6 mb-3">Mengapa Memilih Kami untuk <?= e($category['name']) ?> di Jakarta Utara?</h3>
-          <ul class="space-y-2">
-            <li>✅ Bunga 100% segar berkualitas premium</li>
-            <li>✅ Pengiriman cepat 2-4 jam ke seluruh Jakarta Utara</li>
-            <li>✅ Harga transparan mulai Rp 300.000</li>
-            <li>✅ Desain custom sesuai keinginan Anda</li>
-            <li>✅ Melayani pesanan mendadak 24 jam</li>
-          </ul>
+        <div class="max-w-none">
+  <h2 class="font-serif text-2xl font-bold text-navy mb-4">
+    <?= e($category['name']) ?> Terbaik di Jakarta Utara
+  </h2>
+
+  <div class="prose-db">
+    <?= $category['content'] ?>
+  </div>
+
+  <!-- konten statis di luar prose-db, pakai styling manual -->
+  <p class="text-gray-600 text-[15px] leading-relaxed mb-4">
+    Kami sebagai <strong class="text-navy font-bold">florist Jakarta Utara</strong> ...
+  </p>
+
+  <h3 class="font-serif text-xl font-bold text-navy mt-6 mb-3">
+    Mengapa Memilih Kami?
+  </h3>
+  <ul class="space-y-2">
+    <li>✅ Bunga 100% segar berkualitas premium</li>
+    <li>✅ Pengiriman cepat 2-4 jam</li>
+    <li>✅ Harga transparan mulai Rp 300.000</li>
+    <li>✅ Desain custom sesuai keinginan Anda</li>
+    <li>✅ Melayani pesanan mendadak 24 jam</li>
+  </ul>
           <h3 class="font-serif text-xl font-bold text-navy mt-6 mb-3">Area Pengiriman <?= e($category['name']) ?></h3>
           <p>Kami melayani pengiriman <?= e(strtolower($category['name'])) ?> ke seluruh kecamatan di Jakarta Utara, termasuk:
             <a href="<?= BASE_URL ?>/toko-bunga-penjaringan/" class="text-sage hover:underline">Penjaringan</a>,
