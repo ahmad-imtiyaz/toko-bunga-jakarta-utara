@@ -26,7 +26,30 @@ $locs    = db()->query("SELECT name, slug FROM locations WHERE status='active' O
         <p class="text-gray-300 text-sm leading-relaxed mb-4">
           <?= e(setting('footer_text')) ?>
         </p>
-        <div class="flex gap-3">
+    <!-- ── Marketplace ── -->
+        <p class="footer-markets-label">Temukan Kami di</p>
+        <div class="footer-markets">
+          <a href="https://id.shp.ee/R1iEKrTg"
+             target="_blank" rel="noopener"
+             class="footer-market-btn" aria-label="Shopee">
+            <img src="<?= BASE_URL ?>/assets/svg/shopee.svg" alt="Shopee" width="15" height="15">
+            Shopee
+          </a>
+          <a href="https://vt.tiktok.com/ZS9992dcj/?page=Mall"
+             target="_blank" rel="noopener"
+             class="footer-market-btn" aria-label="TikTok Shop">
+            <img src="<?= BASE_URL ?>/assets/svg/tiktok.svg" alt="TikTok Shop" width="15" height="15">
+            TikTok Shop
+          </a>
+          <a href="https://tk.tokopedia.com/ZS999mNA8/"
+             target="_blank" rel="noopener"
+             class="footer-market-btn" aria-label="Tokopedia">
+            <img src="<?= BASE_URL ?>/assets/svg/tokopedia.svg" alt="Tokopedia" width="15" height="15">
+            Tokopedia
+          </a>
+        </div>
+
+       <div class="flex gap-3 mt-4">
           <a href="<?= e($wa_full) ?>" target="_blank"
              class="w-9 h-9 bg-green-500 rounded-full flex items-center justify-center hover:bg-green-400 transition text-sm">
             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -36,6 +59,8 @@ $locs    = db()->query("SELECT name, slug FROM locations WHERE status='active' O
           </a>
         </div>
       </div>
+
+
 
       <!-- Layanan -->
       <div>
@@ -285,12 +310,60 @@ $locs    = db()->query("SELECT name, slug FROM locations WHERE status='active' O
   text-align: center;
   margin-top: 6px;
 }
-
+/* ─── MARKETPLACE LINKS (navy theme) ─── */
+.footer-markets-label {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.28);
+  margin-bottom: 9px;
+  margin-top: 18px;
+}
+.footer-markets {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+.footer-market-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 8px;
+  text-decoration: none;
+  color: rgba(255,255,255,.55);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background .22s, border-color .22s, color .22s, transform .22s;
+}
+.footer-market-btn:hover {
+  background: rgba(110,231,183,.1);
+  border-color: rgba(110,231,183,.35);
+  color: #6ee7b7;
+  transform: translateY(-2px);
+}
+.footer-market-btn img {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+  opacity: .8;
+  flex-shrink: 0;
+  transition: opacity .22s, transform .22s;
+}
+.footer-market-btn:hover img {
+  opacity: 1;
+  transform: scale(1.12);
+}
 /* ---- RESPONSIVE ---- */
 @media (max-width: 767px) {
   .fas-btn  { width: 34px; height: 34px; }
   .fas-hint { display: block; }
 }
+
 </style>
 
 <!-- ================================================================
