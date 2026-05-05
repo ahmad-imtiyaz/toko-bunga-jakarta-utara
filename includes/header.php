@@ -35,7 +35,7 @@ if ($base_path && str_starts_with($current_slug, $base_path)) {
 <meta name="description" content="<?= e($meta_desc) ?>">
 <meta name="keywords"    content="<?= e($meta_keywords) ?>">
 <meta name="robots"      content="index, follow">
-<link rel="icon"         href="<?= BASE_URL ?>/assets/images/icon.png">
+<link rel="icon" href="<?= setting('logo') ? UPLOAD_URL . e(setting('logo')) : BASE_URL . '/assets/images/icon.png' ?>">
 <link rel="canonical"    href="<?= e(BASE_URL . '/' . trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/')) ?>">
 <meta property="og:title"       content="<?= e($meta_title) ?>">
 <meta property="og:description" content="<?= e($meta_desc) ?>">
@@ -138,7 +138,8 @@ tailwind.config = {
       <!-- Logo -->
       <a href="<?= BASE_URL ?>/" class="brand group flex items-center gap-3 flex-shrink-0">
         <div class="w-10 h-10 rounded-full bg-sage flex items-center justify-center shadow overflow-hidden">
-          <img src="<?= BASE_URL ?>/assets/images/icon.png" alt="Logo" class="w-full h-full object-cover">
+          <?php $logo = setting('logo'); ?>
+<img src="<?= $logo ? imgUrl($logo) : BASE_URL . '/assets/images/icon.png' ?>" alt="Logo" class="w-full h-full object-cover">
         </div>
         <div>
           <div class="font-serif font-bold text-navy text-base leading-tight"><?= e($site_name) ?></div>
