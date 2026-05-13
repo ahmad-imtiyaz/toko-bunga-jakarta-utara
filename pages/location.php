@@ -57,8 +57,16 @@ require __DIR__ . '/../includes/header.php';
         📍 <?= e($location['name']) ?>, Jakarta Utara
       </div>
       <h1 class="font-serif text-3xl md:text-5xl font-bold text-navy mb-4">
-        Toko Bunga <?= e($location['name']) ?> Jakarta Utara
-      </h1>
+    <?php
+        $words = explode(' ', e($location['name']));
+        $first = $words[0];
+        $rest  = implode(' ', array_slice($words, 1));
+    ?>
+    <span class="text-navy"><?= $first ?></span>
+    <?php if ($rest): ?>
+        <span style="background:linear-gradient(135deg,var(--dusty),var(--rose),var(--blush));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;"><?= $rest ?></span>
+    <?php endif; ?>
+</h1>
       <p class="text-gray-600 text-lg mb-6">
         Florist <?= e($location['name']) ?> terpercaya melayani karangan bunga papan, hand bouquet, bunga duka cita, wedding, dan semua kebutuhan bunga Anda. Pengiriman cepat 2-4 jam ke seluruh <?= e($location['name']) ?>.
       </p>
